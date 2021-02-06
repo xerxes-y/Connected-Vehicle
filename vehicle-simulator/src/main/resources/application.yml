@@ -1,3 +1,7 @@
+server:
+  port: 9201
+  http2:
+    enabled: true
 spring:
   application:
     name: "Vehicle Simulator"
@@ -5,4 +9,9 @@ spring:
     mongodb:
       port: 27017
       host: localhost
-  stream
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zkNodes: 127.0.0.1:2181

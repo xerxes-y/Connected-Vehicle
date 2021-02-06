@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "Vehicle Simulator"
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+  stream

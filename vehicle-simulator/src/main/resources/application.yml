@@ -13,5 +13,11 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 127.0.0.1:9092
-          zkNodes: 127.0.0.1:2181
+          brokers: localhost:9092
+          zkNodes: localhost:2181
+      bindings:
+        vehicle-streams:
+          destination: vehicle-stream
+          contentType: application/json
+          producer:
+            headerMode: raw

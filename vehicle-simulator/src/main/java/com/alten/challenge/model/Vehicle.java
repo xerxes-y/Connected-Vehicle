@@ -12,4 +12,5 @@ public class Vehicle {
     private String vin;
     private String regNr;
     private String customerId;
+    private boolean availability;
 }

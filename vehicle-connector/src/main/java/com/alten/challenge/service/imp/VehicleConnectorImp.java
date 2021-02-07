@@ -19,6 +19,6 @@ public class VehicleConnectorImp implements VehicleConnector {
     status.setDriverId(vehicleStatus.getDriverId());
     status.setPing(vehicleStatus.getPing());
     status.setVin(vehicleStatus.getVin());
-    statusRepository.save(status);
+    statusRepository.save(status).subscribe();
     }
 }

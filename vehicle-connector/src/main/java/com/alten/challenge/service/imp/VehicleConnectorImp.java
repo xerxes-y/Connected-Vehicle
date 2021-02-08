@@ -6,7 +6,7 @@ import com.alten.challenge.service.VehicleConnector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-@Service("nonEtfDonyaOrderService")
+@Service("vehicleConnectorImp")
 @RequiredArgsConstructor
 @Slf4j
 public class VehicleConnectorImp implements VehicleConnector {

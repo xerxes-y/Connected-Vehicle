@@ -1,8 +1,7 @@
 package com.alten.challenge.stream;
 
 
-import com.alten.challenge.dto.VehicleStatus;
-import com.alten.challenge.service.VehicleConnector;
+import com.alten.challenge.dto.VehicleStatusDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -18,8 +17,8 @@ public class VehicleConnectorListener {
     private final com.alten.challenge.service.VehicleConnector VehicleConnector;
 
     @StreamListener(VehicleConnectedStream.VEHICLE_CONNECTOR)
-    public void handleOrderUpdate(@Payload Message<VehicleStatus> message) {
-        VehicleStatus vehicleStatus = message.getPayload();
+    public void handleOrderUpdate(@Payload Message<VehicleStatusDto> message) {
+        VehicleStatusDto vehicleStatus = message.getPayload();
         log.info("received payload from vehicle simulator: {}", vehicleStatus);
         VehicleConnector.saveDriverStatus(vehicleStatus);
     }

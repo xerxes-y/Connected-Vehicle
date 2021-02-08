@@ -14,4 +14,5 @@ public class Status {
     private int driverId;
     private boolean connected;
     private int ping;
+    private Data time;
 }

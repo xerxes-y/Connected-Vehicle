@@ -1,7 +1,7 @@
 package com.alten.challenge.service;
 
-import com.alten.challenge.dto.VehicleStatus;
+import com.alten.challenge.dto.VehicleStatusDto;
 
 public interface VehicleConnector {
-    void saveDriverStatus(VehicleStatus vehicleStatus);
+    void saveDriverStatus(VehicleStatusDto vehicleStatus);
 }

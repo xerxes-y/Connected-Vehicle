@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class VehicleStatus implements Serializable {
+public class VehicleStatusDto implements Serializable {
     private String vin;
     private String customerId;
     private int driverId;

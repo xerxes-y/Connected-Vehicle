@@ -12,7 +12,8 @@ public class Status {
     private String vin;
     private String customerId;
     private int driverId;
-    private boolean connected;
     private int ping;
     private Data time;
+    private StatusDetail statusDetail;
+
 }

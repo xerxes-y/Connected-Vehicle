@@ -3,14 +3,14 @@ package com.alten.challenge.service.imp;
 import com.alten.challenge.dto.CustomerDto;
 import com.alten.challenge.dto.VehicleDto;
 import com.alten.challenge.dto.VehicleStatusDto;
-import com.alten.challenge.model.Customer;
+import com.alten.challenge.model.StatusDetail;
+import com.alten.challenge.model.Vehicle;
 import com.alten.challenge.repository.CustomersRepository;
 import com.alten.challenge.repository.StatusRepository;
 import com.alten.challenge.repository.VehiclesRepository;
 import com.alten.challenge.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
@@ -27,11 +27,17 @@ public class VehicleServiceImpl implements VehicleService {
         return vehiclesRepository.findAll().flatMap(vehicle -> {
             return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
                 VehicleStatusDto vs = new VehicleStatusDto();
-                vs.setConnected(status.isConnected());
                 vs.setCustomerId(status.getCustomerId());
                 vs.setDriverId(status.getDriverId());
                 vs.setPing(status.getPing());
                 vs.setVin(status.getVin());
+                StatusDetail statusDetailDto = new StatusDetail();
+                statusDetailDto.setConnected(status.getStatusDetail().isConnected());
+                statusDetailDto.setGas(status.getStatusDetail().getGas());
+                statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
+                statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
+                statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
+                statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
                 return vs;
             });
         });
@@ -42,18 +48,24 @@ public class VehicleServiceImpl implements VehicleService {
         return customersRepository.findByFullName(name).flatMapMany(customer -> {
             return statusRepository.findByCustomerId(customer.getId()).map(status -> {
                 VehicleStatusDto vs = new VehicleStatusDto();
-                vs.setConnected(status.isConnected());
                 vs.setCustomerId(status.getCustomerId());
                 vs.setDriverId(status.getDriverId());
                 vs.setPing(status.getPing());
                 vs.setVin(status.getVin());
+                StatusDetail statusDetailDto = new StatusDetail();
+                statusDetailDto.setConnected(status.getStatusDetail().isConnected());
+                statusDetailDto.setGas(status.getStatusDetail().getGas());
+                statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
+                statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
+                statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
+                statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
                 return vs;
             });
         });
     }
 
     @Override
-    public Flux<CustomerDto> getCustomers() {
+    public Flux<CustomerDto> getAllCustomers() {
         return customersRepository.findAll().map(customer -> {
             CustomerDto cd = new CustomerDto();
             cd.setAddress(customer.getAddress());
@@ -64,7 +76,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Flux<VehicleDto> getVehicles() {
+    public Flux<VehicleDto> getAllVehicles() {
        return vehiclesRepository.findAll().map(vehicle -> {
             VehicleDto vehicleDto = new VehicleDto();
             vehicleDto.setCustomerId(vehicle.getCustomerId());
@@ -73,4 +85,21 @@ public class VehicleServiceImpl implements VehicleService {
             return vehicleDto;
         });
     }
+
+    @Override
+    public Flux<VehicleDto> getVehiclesWithSpecificStatus(StatusDetail statusDetail) {
+        return statusRepository.findByStatusDetail(statusDetail).flatMap(status -> {
+          return vehiclesRepository.findByVin(status.getVin()).map(vehicle -> {
+               VehicleDto vd = new VehicleDto();
+               vd.setVin(vehicle.getVin());
+               vd.setId(vehicle.getId());
+               vd.setCustomerId(vehicle.getCustomerId());
+               vd.setRegNr(vehicle.getRegNr());
+
+               return vd;
+           });
+        });
+    }
+
+
 }

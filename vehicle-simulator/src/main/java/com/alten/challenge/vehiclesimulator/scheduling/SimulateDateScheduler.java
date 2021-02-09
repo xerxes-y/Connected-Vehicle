@@ -30,7 +30,7 @@ public class SimulateDateScheduler {
         Date date = new Date();// given date
         Calendar cal = Calendar.getInstance(); // creates calendar
         Date startTime = getDate(cal, 8, 30, 0);
-        Date endTime = getDate(cal, 10, 30, 0);
+        Date endTime = getDate(cal, 2, 30, 0);
         Date afternoonTime = getDate(cal, 17, 30, 0);
         Date endAfternoonTime = getDate(cal, 19, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
@@ -38,12 +38,12 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(false);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            1, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            1, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -54,7 +54,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -79,12 +79,12 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(false);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            1, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            1, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -94,7 +94,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -112,7 +112,7 @@ public class SimulateDateScheduler {
         Calendar cal = Calendar.getInstance(); // creates calendar
         Date startTime = getDate(cal, 9, 30, 0);
         Date endTime = getDate(cal, 15, 30, 0);
-        Date afternoonTime = getDate(cal, 20, 30, 0);
+        Date afternoonTime = getDate(cal, 120, 30, 0);
         Date endAfternoonTime = getDate(cal, 23, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
             customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
@@ -121,10 +121,10 @@ public class SimulateDateScheduler {
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            3, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            3, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -134,7 +134,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin3, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -161,10 +161,10 @@ public class SimulateDateScheduler {
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -174,7 +174,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -201,10 +201,10 @@ public class SimulateDateScheduler {
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -214,7 +214,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -241,10 +241,10 @@ public class SimulateDateScheduler {
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -254,7 +254,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
@@ -266,7 +266,7 @@ public class SimulateDateScheduler {
         }
     }
 
-    @Scheduled(fixedRate = 600)
+    @Scheduled(fixedRate = 60000)
     public void driverDataGenerator7() {
         Date date = new Date();// given date
         Calendar cal = Calendar.getInstance(); // creates calendar
@@ -281,10 +281,10 @@ public class SimulateDateScheduler {
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
                     statusDetail.setRunEngine(true);
-                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -294,7 +294,7 @@ public class SimulateDateScheduler {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
-                    statusDetail.setGas(20);
+                    statusDetail.setGas(120);
                     statusDetail.setRunEngine(false);
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);

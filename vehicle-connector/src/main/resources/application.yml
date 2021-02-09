@@ -17,8 +17,8 @@ spring:
           brokers: localhost:9092
           zkNodes: localhost:2181
       bindings:
-        vehicle-streams:
+        vehicle-stream:
           destination: vehicle-stream
           contentType: application/json
           producer:
-            headers: none
+            headerMode: none

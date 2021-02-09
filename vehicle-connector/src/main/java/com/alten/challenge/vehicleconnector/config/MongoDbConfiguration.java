@@ -17,7 +17,7 @@ import static com.alten.challenge.vehicleconnector.constants.PropertiesKey.*;
 
 
 @Configuration
-@EnableReactiveMongoRepositories("com.alten.challenge.**")
+@EnableReactiveMongoRepositories("com.alten.challenge.vehicleconnector.**")
 public class MongoDbConfiguration extends AbstractReactiveMongoConfiguration {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(MongoDbConfiguration.class);

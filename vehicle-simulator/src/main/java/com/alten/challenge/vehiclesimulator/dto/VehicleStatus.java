@@ -1,11 +1,15 @@
 package com.alten.challenge.vehiclesimulator.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
-public class VehicleStatus {
+@JsonIgnoreProperties
+public class VehicleStatus implements Serializable {
     private String vin;
     private String customerId;
     private int driverId;

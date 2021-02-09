@@ -2,8 +2,13 @@ package com.alten.challenge.vehiclesimulator.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class StatusDetail {
+public class StatusDetail implements Serializable {
+    public StatusDetail() {
+    }
+
     private boolean connected;
     private boolean openDoor;
     private boolean runEngine;

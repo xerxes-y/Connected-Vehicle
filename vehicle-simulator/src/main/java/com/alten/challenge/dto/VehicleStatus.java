@@ -11,4 +11,5 @@ public class VehicleStatus {
     private int driverId;
     private boolean connected;
     private int ping;
+    private StatusDetail statusDetail;
 }

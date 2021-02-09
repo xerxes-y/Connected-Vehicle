@@ -68,7 +68,7 @@ public class ApplicationStartup
                 vehiclesRepository.saveAll(johansVehicle).subscribe();
             });
         }
-        if(customersRepository.findByFullName("Johans Bulk").block()==null){
+        if(customersRepository.findByFullName("Haralds Värdetransporter").block()==null){
             Customer haralds = new Customer();
             haralds.setAddress("Budgetvägen 1, 333 33 Uppsala");
             haralds.setFullName("Haralds Värdetransporter");

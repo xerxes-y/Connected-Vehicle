@@ -95,7 +95,6 @@ public class VehicleServiceImpl implements VehicleService {
                vd.setId(vehicle.getId());
                vd.setCustomerId(vehicle.getCustomerId());
                vd.setRegNr(vehicle.getRegNr());
-
                return vd;
            });
         });

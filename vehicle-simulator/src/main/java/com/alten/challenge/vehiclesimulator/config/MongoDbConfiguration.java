@@ -6,6 +6,7 @@ import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +28,6 @@ public class MongoDbConfiguration extends AbstractReactiveMongoConfiguration {
     private String host;
     @Value(SPRING_DATA_MONGODB_PORT)
     private String port;
-
-
-
     @Override
     protected String getDatabaseName() {
         return mongoDatabase;

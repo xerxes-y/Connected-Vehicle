@@ -9,11 +9,11 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @JsonIgnoreProperties
-public class VehicleStatus implements Serializable {
+public class VehicleStatusSenderDto implements Serializable {
     private String vin;
     private String customerId;
     private int driverId;
     private boolean connected;
     private int ping;
-    private StatusDetail statusDetail;
+    private StatusDetailSender statusDetailDto;
 }

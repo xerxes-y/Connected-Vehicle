@@ -5,10 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class StatusDetail implements Serializable {
-    public StatusDetail() {
-    }
-
+public class StatusDetailSender implements Serializable {
     private boolean connected;
     private boolean openDoor;
     private boolean runEngine;

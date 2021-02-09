@@ -2,8 +2,8 @@ package com.alten.challenge.vehicleconnector.service.imp;
 
 import com.alten.challenge.vehicleconnector.dto.CustomerDto;
 import com.alten.challenge.vehicleconnector.dto.VehicleDto;
-import com.alten.challenge.vehicleconnector.dto.VehicleStatusDto;
-import com.alten.challenge.vehicleconnector.model.StatusDetail;
+import com.alten.challenge.vehicleconnector.dto.VehicleStatusReceiverDto;
+import com.alten.challenge.vehicleconnector.model.StatusDetailReceiver;
 import com.alten.challenge.vehicleconnector.repository.CustomersRepository;
 import com.alten.challenge.vehicleconnector.repository.StatusRepository;
 import com.alten.challenge.vehicleconnector.repository.VehiclesRepository;
@@ -22,15 +22,15 @@ public class VehicleServiceImpl implements VehicleService {
     private final VehiclesRepository vehiclesRepository;
 
     @Override
-    public Flux<VehicleStatusDto> streamVehicleStatus() {
+    public Flux<VehicleStatusReceiverDto> streamVehicleStatus() {
         return vehiclesRepository.findAll().flatMap(vehicle -> {
             return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
-                VehicleStatusDto vs = new VehicleStatusDto();
+                VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
                 vs.setCustomerId(status.getCustomerId());
                 vs.setDriverId(status.getDriverId());
                 vs.setPing(status.getPing());
                 vs.setVin(status.getVin());
-                StatusDetail statusDetailDto = new StatusDetail();
+                StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
                 statusDetailDto.setConnected(status.getStatusDetail().isConnected());
                 statusDetailDto.setGas(status.getStatusDetail().getGas());
                 statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
@@ -43,15 +43,15 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Flux<VehicleStatusDto> getCustomerVehicle(String name) {
+    public Flux<VehicleStatusReceiverDto> getCustomerVehicle(String name) {
         return customersRepository.findByFullName(name).flatMapMany(customer -> {
             return statusRepository.findByCustomerId(customer.getId()).map(status -> {
-                VehicleStatusDto vs = new VehicleStatusDto();
+                VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
                 vs.setCustomerId(status.getCustomerId());
                 vs.setDriverId(status.getDriverId());
                 vs.setPing(status.getPing());
                 vs.setVin(status.getVin());
-                StatusDetail statusDetailDto = new StatusDetail();
+                StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
                 statusDetailDto.setConnected(status.getStatusDetail().isConnected());
                 statusDetailDto.setGas(status.getStatusDetail().getGas());
                 statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
@@ -86,7 +86,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Flux<VehicleDto> getVehiclesWithSpecificStatus(StatusDetail statusDetail) {
+    public Flux<VehicleDto> getVehiclesWithSpecificStatus(StatusDetailReceiver statusDetail) {
         return statusRepository.findByStatusDetail(statusDetail).flatMap(status -> {
           return vehiclesRepository.findByVin(status.getVin()).map(vehicle -> {
                VehicleDto vd = new VehicleDto();

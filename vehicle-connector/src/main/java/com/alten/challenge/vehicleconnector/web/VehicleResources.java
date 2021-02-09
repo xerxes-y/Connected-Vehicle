@@ -1,6 +1,6 @@
 package com.alten.challenge.vehicleconnector.web;
 
-import com.alten.challenge.vehicleconnector.dto.VehicleStatusDto;
+import com.alten.challenge.vehicleconnector.dto.VehicleStatusReceiverDto;
 import com.alten.challenge.vehicleconnector.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -19,12 +19,12 @@ import java.time.Duration;
 public class VehicleResources {
     private final VehicleService vehicleService;
     @GetMapping(value = "/get-all-vehicle",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<VehicleStatusDto> StreamAllVehicleStatus(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public Flux<VehicleStatusReceiverDto> StreamAllVehicleStatus(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         return vehicleService.streamVehicleStatus().delayElements(Duration.ofMinutes(1));
 
     }
     @GetMapping("/get-customer-vehicle")
-    public Flux<VehicleStatusDto> getCustomerVehicle(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public Flux<VehicleStatusReceiverDto> getCustomerVehicle(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         return vehicleService.streamVehicleStatus();
 
     }

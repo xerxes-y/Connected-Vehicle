@@ -14,6 +14,6 @@ public class Status {
     private int driverId;
     private int ping;
     private Data time;
-    private StatusDetail statusDetail;
+    private StatusDetailReceiver statusDetail;
 
 }

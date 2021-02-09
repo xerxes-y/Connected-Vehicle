@@ -1,4 +1,4 @@
-package com.alten.challenge.stream;
+package com.alten.challenge.vehiclesimulator.stream;
 
 
 import lombok.RequiredArgsConstructor;

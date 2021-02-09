@@ -1,4 +1,4 @@
-package com.alten.challenge.config;
+package com.alten.challenge.vehiclesimulator.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -13,14 +13,14 @@ import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguratio
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-import static com.alten.challenge.constants.PropertiesKey.*;
+import static com.alten.challenge.vehiclesimulator.constants.PropertiesKey.*;
 
 
 @Configuration
-@EnableReactiveMongoRepositories("com.alten.challenge.**")
+@EnableReactiveMongoRepositories("com.alten.challenge.vehiclesimulator.**")
 public class MongoDbConfiguration extends AbstractReactiveMongoConfiguration {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(com.alten.challenge.config.MongoDbConfiguration.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MongoDbConfiguration.class);
     @Value(SPRING_DATA_MONGODB_DATABASE)
     private String mongoDatabase;
     @Value(SPRING_DATA_MONGODB_HOST)

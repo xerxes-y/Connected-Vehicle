@@ -1,7 +1,7 @@
-package com.alten.challenge.config;
+package com.alten.challenge.vehiclesimulator.config;
 
 
-import com.alten.challenge.stream.VehicleConnectedStream;
+import com.alten.challenge.vehiclesimulator.stream.VehicleConnectedStream;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Configuration;
 

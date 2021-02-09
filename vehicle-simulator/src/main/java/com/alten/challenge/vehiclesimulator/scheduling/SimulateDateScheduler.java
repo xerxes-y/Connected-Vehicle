@@ -1,23 +1,20 @@
-package com.alten.challenge.scheduling;
+package com.alten.challenge.vehiclesimulator.scheduling;
 
-import com.alten.challenge.dto.StatusDetail;
-import com.alten.challenge.dto.VehicleStatus;
-import com.alten.challenge.model.Customer;
-import com.alten.challenge.model.Vehicle;
-import com.alten.challenge.repository.CustomersRepository;
-import com.alten.challenge.repository.VehiclesRepository;
-import com.alten.challenge.stream.StreamMessageSender;
-import jdk.jshell.Snippet;
+import com.alten.challenge.vehiclesimulator.constants.PropertiesKey;
+import com.alten.challenge.vehiclesimulator.dto.StatusDetail;
+import com.alten.challenge.vehiclesimulator.dto.VehicleStatus;
+import com.alten.challenge.vehiclesimulator.model.Customer;
+import com.alten.challenge.vehiclesimulator.model.Vehicle;
+import com.alten.challenge.vehiclesimulator.repository.CustomersRepository;
+import com.alten.challenge.vehiclesimulator.repository.VehiclesRepository;
+import com.alten.challenge.vehiclesimulator.stream.StreamMessageSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -37,20 +34,24 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 17, 30, 0);
         Date endAfternoonTime = getDate(cal, 19, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            Customer kallesDriver = customersRepository.findByFullName("Kalles Grustransporte").block();
-            Vehicle vehicle = vehiclesRepository.findByVinAndAvailability("YS2R4X20005399401", true).block();
-            StatusDetail statusDetail = new StatusDetail();
-            statusDetail.setConnected(true);
-            statusDetail.setGas(20);
-            statusDetail.setRunEngine(true);
-            statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
-            statusDetail.setOpenDoor(false);
-            VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), kallesDriver.getId(),
-                    1, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
-            streamMessageSender.sentMessage(vehicleStatus);
+           customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin1, customer.getId()).subscribe(vehicle -> {
+                    StatusDetail statusDetail = new StatusDetail();
+                    statusDetail.setConnected(true);
+                    statusDetail.setGas(20);
+                    statusDetail.setRunEngine(true);
+                    statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(120, 20 + 1));
+                    statusDetail.setOpenDoor(false);
+                    VehicleStatus vehicleStatus = new VehicleStatus(vehicle.getVin(), customer.getId(),
+                            1, true, ThreadLocalRandom.current().nextInt(10, 1 + 1), statusDetail);
+                    streamMessageSender.sentMessage(vehicleStatus);
+                });
+            });
+
+
         }else {
-            customersRepository.findByFullName("Kalles Grustransporte").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005399401", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -74,8 +75,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 15, 30, 0);
         Date endAfternoonTime = getDate(cal, 17, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Kalles Grustransporte").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("VLUR4X20009093588", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(20);
@@ -89,8 +90,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Kalles Grustransporte").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("VLUR4X20009093588", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -114,8 +115,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 20, 30, 0);
         Date endAfternoonTime = getDate(cal, 23, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Kalles Grustransporte").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("VLUR4X20009048066", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin3, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
@@ -129,8 +130,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Kalles Grustransporte").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("VLUR4X20009048066", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin3, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -154,8 +155,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 12, 30, 0);
         Date endAfternoonTime = getDate(cal, 16, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Johans Bulk").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005388011", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Johans_Bulk).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
@@ -169,8 +170,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Johans Bulk").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005388011", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Johans_Bulk).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -194,8 +195,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 13, 30, 0);
         Date endAfternoonTime = getDate(cal, 17, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Johans Bulk").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387949", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Johans_Bulk).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
@@ -209,8 +210,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Johans Bulk").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387949", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Johans_Bulk).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Johans_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -234,8 +235,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 18, 30, 0);
         Date endAfternoonTime = getDate(cal, 22, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Haralds Värdetransporter").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387765", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
@@ -249,8 +250,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Haralds Värdetransporter").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387765", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin1, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);
@@ -265,7 +266,7 @@ public class SimulateDateScheduler {
         }
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 600)
     public void driverDataGenerator7() {
         Date date = new Date();// given date
         Calendar cal = Calendar.getInstance(); // creates calendar
@@ -274,8 +275,8 @@ public class SimulateDateScheduler {
         Date afternoonTime = getDate(cal, 8, 30, 0);
         Date endAfternoonTime = getDate(cal, 12, 30, 0);
         if (date.after(startTime) && date.before(endTime) || date.after(afternoonTime) && date.before(endAfternoonTime)) {
-            customersRepository.findByFullName("Haralds Värdetransporter").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387055", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(true);
                     statusDetail.setGas(40);
@@ -289,8 +290,8 @@ public class SimulateDateScheduler {
             });
 
         } else {
-            customersRepository.findByFullName("Haralds Värdetransporter").subscribe(customer -> {
-                vehiclesRepository.findByVinAndAvailability("YS2R4X20005387055", true).subscribe(vehicle -> {
+            customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).subscribe(customer -> {
+                vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Haralds_Vin2, customer.getId()).subscribe(vehicle -> {
                     StatusDetail statusDetail = new StatusDetail();
                     statusDetail.setConnected(false);
                     statusDetail.setGas(20);

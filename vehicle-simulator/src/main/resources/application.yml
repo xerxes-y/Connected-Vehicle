@@ -8,6 +8,7 @@ spring:
   data:
     mongodb:
       port: 27017
+      database: vehicles
       host: localhost
   cloud:
     stream:
@@ -20,4 +21,4 @@ spring:
           destination: vehicle-stream
           contentType: application/json
           producer:
-            headerMode: raw
+            headers: none

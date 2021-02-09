@@ -7,10 +7,7 @@ import com.alten.challenge.vehicleconnector.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -25,14 +22,14 @@ public class VehicleResources {
         return Flux.interval(Duration.ofSeconds(1)).flatMap(duration -> vehicleService.streamVehicleStatus());
 
     }
-    @GetMapping("/get-customer-vehicle")
-    public Flux<VehicleStatusReceiverDto> getCustomerVehicle(String customerName) {
+    @GetMapping("/get-customer-vehicle/{customerName}")
+    public Flux<VehicleStatusReceiverDto> getCustomerVehicle(@PathVariable String customerName) {
         return vehicleService.getCustomerVehicle(customerName);
 
     }
 
     @GetMapping("/get-vehicle-with-status")
-    public Flux<VehicleDto> getCustomerVehicle(StatusDetailReceiver statusDetailReceiver) {
+    public Flux<VehicleDto> getCustomerVehicle(@RequestBody  StatusDetailReceiver statusDetailReceiver) {
         return vehicleService.getVehiclesWithSpecificStatus(statusDetailReceiver);
 
     }

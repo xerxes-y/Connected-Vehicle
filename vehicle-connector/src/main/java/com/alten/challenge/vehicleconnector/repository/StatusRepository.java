@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface StatusRepository extends ReactiveMongoRepository<Status, String> {
-    Flux<Status> findByCustomerId(String customerId);
+    Mono<Status> findTopByCustomerId(String customerId);
     Mono<Status> findTopByVin(String vin);
     Flux<Status> findByStatusDetail(StatusDetailReceiver statusDetail);
 

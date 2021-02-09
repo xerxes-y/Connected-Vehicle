@@ -24,42 +24,47 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Flux<VehicleStatusReceiverDto> streamVehicleStatus() {
         return vehiclesRepository.findAll().flatMap(vehicle -> {
-            return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
-                VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
-                vs.setCustomerId(status.getCustomerId());
-                vs.setDriverId(status.getDriverId());
-                vs.setPing(status.getPing());
-                vs.setVin(status.getVin());
-                StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
-                statusDetailDto.setConnected(status.getStatusDetail().isConnected());
-                statusDetailDto.setGas(status.getStatusDetail().getGas());
-                statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
-                statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
-                statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
-                statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
-                vs.setStatusDetailDto(statusDetailDto);
-                return vs;
+            return customersRepository.findById(vehicle.getCustomerId()).flatMap(customer -> {
+                return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
+                    VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
+                    vs.setCustomerId(customer.getFullName());
+                    vs.setDriverId(status.getDriverId());
+                    vs.setPing(status.getPing());
+                    vs.setVin(status.getVin());
+                    StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
+                    statusDetailDto.setConnected(status.getStatusDetail().isConnected());
+                    statusDetailDto.setGas(status.getStatusDetail().getGas());
+                    statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
+                    statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
+                    statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
+                    statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
+                    vs.setStatusDetailDto(statusDetailDto);
+                    return vs;
+                });
             });
         });
     }
 
     @Override
     public Flux<VehicleStatusReceiverDto> getCustomerVehicle(String name) {
-        return customersRepository.findByFullName(name).flatMapMany(customer -> {
-            return statusRepository.findByCustomerId(customer.getId()).map(status -> {
-                VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
-                vs.setCustomerId(status.getCustomerId());
-                vs.setDriverId(status.getDriverId());
-                vs.setPing(status.getPing());
-                vs.setVin(status.getVin());
-                StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
-                statusDetailDto.setConnected(status.getStatusDetail().isConnected());
-                statusDetailDto.setGas(status.getStatusDetail().getGas());
-                statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
-                statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
-                statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
-                statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
-                return vs;
+        return customersRepository.findByFullNameStartingWith(name).flatMapMany(customer -> {
+            return vehiclesRepository.findByCustomerId(customer.getId()).flatMap(vehicle -> {
+                return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
+                    VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
+                    vs.setCustomerId(status.getCustomerId());
+                    vs.setDriverId(status.getDriverId());
+                    vs.setPing(status.getPing());
+                    vs.setVin(status.getVin());
+                    StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
+                    statusDetailDto.setConnected(status.getStatusDetail().isConnected());
+                    statusDetailDto.setGas(status.getStatusDetail().getGas());
+                    statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
+                    statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
+                    statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
+                    statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
+                    vs.setStatusDetailDto(statusDetailDto);
+                    return vs;
+                });
             });
         });
     }
@@ -77,7 +82,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Flux<VehicleDto> getAllVehicles() {
-       return vehiclesRepository.findAll().map(vehicle -> {
+        return vehiclesRepository.findAll().map(vehicle -> {
             VehicleDto vehicleDto = new VehicleDto();
             vehicleDto.setCustomerId(vehicle.getCustomerId());
             vehicleDto.setId(vehicle.getId());
@@ -89,14 +94,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Flux<VehicleDto> getVehiclesWithSpecificStatus(StatusDetailReceiver statusDetail) {
         return statusRepository.findByStatusDetail(statusDetail).flatMap(status -> {
-          return vehiclesRepository.findByVin(status.getVin()).map(vehicle -> {
-               VehicleDto vd = new VehicleDto();
-               vd.setVin(vehicle.getVin());
-               vd.setId(vehicle.getId());
-               vd.setCustomerId(vehicle.getCustomerId());
-               vd.setRegNr(vehicle.getRegNr());
-               return vd;
-           });
+            return vehiclesRepository.findByVin(status.getVin()).map(vehicle -> {
+                VehicleDto vd = new VehicleDto();
+                vd.setVin(vehicle.getVin());
+                vd.setId(vehicle.getId());
+                vd.setCustomerId(vehicle.getCustomerId());
+                vd.setRegNr(vehicle.getRegNr());
+                return vd;
+            });
         });
     }
 

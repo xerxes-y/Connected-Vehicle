@@ -1,9 +1,7 @@
-package com.alten.challenge.repository;
+package com.alten.challenge.vehicleconnector.repository;
 
-import com.alten.challenge.model.Status;
-import com.alten.challenge.model.StatusDetail;
-import com.alten.challenge.model.Vehicle;
-import org.apache.kafka.common.protocol.types.Field;
+import com.alten.challenge.vehicleconnector.model.Status;
+import com.alten.challenge.vehicleconnector.model.StatusDetail;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;

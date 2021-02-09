@@ -1,4 +1,4 @@
-package com.alten.challenge.stream;
+package com.alten.challenge.vehicleconnector.stream;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;

@@ -1,4 +1,4 @@
-package com.alten.challenge.dto;
+package com.alten.challenge.vehicleconnector.dto;
 
 import lombok.Data;
 

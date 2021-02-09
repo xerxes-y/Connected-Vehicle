@@ -1,4 +1,4 @@
-package com.alten.challenge.constants;
+package com.alten.challenge.vehicleconnector.constants;
 
 public class PropertiesKey {
 

@@ -1,7 +1,7 @@
-package com.alten.challenge.web;
+package com.alten.challenge.vehicleconnector.web;
 
-import com.alten.challenge.dto.VehicleStatusDto;
-import com.alten.challenge.service.VehicleService;
+import com.alten.challenge.vehicleconnector.dto.VehicleStatusDto;
+import com.alten.challenge.vehicleconnector.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

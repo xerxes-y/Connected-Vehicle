@@ -1,0 +1,24 @@
+server:
+  port: 9202
+  http2:
+    enabled: true
+spring:
+  application:
+    name: "Vehicle connector"
+  data:
+    mongodb:
+      port: 27017
+      database: vehicles
+      host: localhost
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zkNodes: localhost:2181
+      bindings:
+        vehicle-streams:
+          destination: vehicle-stream
+          contentType: application/json
+          producer:
+            headers: none

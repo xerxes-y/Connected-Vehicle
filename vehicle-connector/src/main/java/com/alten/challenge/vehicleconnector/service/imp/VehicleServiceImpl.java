@@ -1,14 +1,13 @@
-package com.alten.challenge.service.imp;
+package com.alten.challenge.vehicleconnector.service.imp;
 
-import com.alten.challenge.dto.CustomerDto;
-import com.alten.challenge.dto.VehicleDto;
-import com.alten.challenge.dto.VehicleStatusDto;
-import com.alten.challenge.model.StatusDetail;
-import com.alten.challenge.model.Vehicle;
-import com.alten.challenge.repository.CustomersRepository;
-import com.alten.challenge.repository.StatusRepository;
-import com.alten.challenge.repository.VehiclesRepository;
-import com.alten.challenge.service.VehicleService;
+import com.alten.challenge.vehicleconnector.dto.CustomerDto;
+import com.alten.challenge.vehicleconnector.dto.VehicleDto;
+import com.alten.challenge.vehicleconnector.dto.VehicleStatusDto;
+import com.alten.challenge.vehicleconnector.model.StatusDetail;
+import com.alten.challenge.vehicleconnector.repository.CustomersRepository;
+import com.alten.challenge.vehicleconnector.repository.StatusRepository;
+import com.alten.challenge.vehicleconnector.repository.VehiclesRepository;
+import com.alten.challenge.vehicleconnector.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

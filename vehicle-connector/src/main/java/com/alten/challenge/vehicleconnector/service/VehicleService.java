@@ -1,9 +1,9 @@
-package com.alten.challenge.service;
+package com.alten.challenge.vehicleconnector.service;
 
-import com.alten.challenge.dto.CustomerDto;
-import com.alten.challenge.dto.VehicleDto;
-import com.alten.challenge.dto.VehicleStatusDto;
-import com.alten.challenge.model.StatusDetail;
+import com.alten.challenge.vehicleconnector.dto.CustomerDto;
+import com.alten.challenge.vehicleconnector.dto.VehicleDto;
+import com.alten.challenge.vehicleconnector.dto.VehicleStatusDto;
+import com.alten.challenge.vehicleconnector.model.StatusDetail;
 import reactor.core.publisher.Flux;
 
 public interface VehicleService {

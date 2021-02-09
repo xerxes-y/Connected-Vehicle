@@ -1,4 +1,4 @@
-package com.alten.challenge.model;
+package com.alten.challenge.vehicleconnector.model;
 
 import lombok.Data;
 

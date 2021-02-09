@@ -1,6 +1,6 @@
-package com.alten.challenge.dto;
+package com.alten.challenge.vehicleconnector.dto;
 
-import com.alten.challenge.model.StatusDetail;
+import com.alten.challenge.vehicleconnector.model.StatusDetail;
 import lombok.Data;
 
 import java.io.Serializable;

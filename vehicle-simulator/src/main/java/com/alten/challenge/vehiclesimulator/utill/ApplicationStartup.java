@@ -21,10 +21,6 @@ public class ApplicationStartup
         implements ApplicationRunner {
     private final CustomersRepository customersRepository;
     private final VehiclesRepository vehiclesRepository;
-    /**
-     * This event is executed as late as conceivably possible to indicate that
-     * the application is ready to service requests.
-     */
     @Override
     public void run(ApplicationArguments args) throws Exception {
         if(customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).block()==null){

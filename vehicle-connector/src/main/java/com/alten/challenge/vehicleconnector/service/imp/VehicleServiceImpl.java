@@ -27,7 +27,8 @@ public class VehicleServiceImpl implements VehicleService {
             return customersRepository.findById(vehicle.getCustomerId()).flatMap(customer -> {
                 return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
                     VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
-                    vs.setCustomerId(customer.getFullName());
+                    vs.setCustomerId(customer.getId());
+                    vs.setCustomerName(customer.getFullName());
                     vs.setDriverId(status.getDriverId());
                     vs.setPing(status.getPing());
                     vs.setVin(status.getVin());
@@ -51,7 +52,8 @@ public class VehicleServiceImpl implements VehicleService {
             return vehiclesRepository.findByCustomerId(customer.getId()).flatMap(vehicle -> {
                 return statusRepository.findTopByVin(vehicle.getVin()).map(status -> {
                     VehicleStatusReceiverDto vs = new VehicleStatusReceiverDto();
-                    vs.setCustomerId(status.getCustomerId());
+                    vs.setCustomerId(customer.getId());
+                    vs.setCustomerName(customer.getFullName());
                     vs.setDriverId(status.getDriverId());
                     vs.setPing(status.getPing());
                     vs.setVin(status.getVin());

@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class VehicleStatusReceiverDto implements Serializable {
     private String vin;
     private String customerId;
+    private String customerName;
     private int driverId;
     private int ping;
     private StatusDetailReceiver statusDetailDto;

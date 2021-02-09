@@ -25,68 +25,37 @@ public class ApplicationStartup
      * This event is executed as late as conceivably possible to indicate that
      * the application is ready to service requests.
      */
-    @EventListener(ApplicationReadyEvent.class)
-    public void init(){
-        if(customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).block()==null){
-            customersRepository.save(Customer.builder()
-                    .fullName(PropertiesKey.Kalles_Grustransporte).address(PropertiesKey.Kalles_Address).build()).subscribe(customer -> {
-                List<Vehicle> kallesVehicle = new ArrayList<>();
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr1).vin(PropertiesKey.Kalles_Vin1).build());
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr2).vin(PropertiesKey.Kalles_Vin2).build());
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr3).vin(PropertiesKey.Kalles_Vin3).build());
-                vehiclesRepository.saveAll(kallesVehicle).subscribe();
-            });
-
-        }
-        if(customersRepository.findByFullName(PropertiesKey.Johans_Bulk).block()==null){
-            customersRepository.save(Customer.builder().fullName(PropertiesKey.Johans_Bulk).address(PropertiesKey.Johans_Address).build()).subscribe(customer -> {
-                List<Vehicle> johansVehicle = new ArrayList<>();
-                johansVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_RegNr1).regNr(PropertiesKey.Johans_Vin1).build());
-                johansVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_RegNr1).regNr(PropertiesKey.Johans_Vin2).build());
-                vehiclesRepository.saveAll(johansVehicle).subscribe();
-            });
-        }
-        if(customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).block()==null){
-            customersRepository.save(Customer.builder()
-                    .fullName(PropertiesKey.Haralds_Värdetransporter).address(PropertiesKey.Haralds_Address).build()).subscribe(customer -> {
-                List<Vehicle> haraldsVehicle = new ArrayList<>();
-                haraldsVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin1).regNr(PropertiesKey.Haralds_RegNr1).build());
-                haraldsVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin2).regNr(PropertiesKey.Haralds_RegNr2).build());
-                vehiclesRepository.saveAll(haraldsVehicle).subscribe();
-
-            });
-        }
-    }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         if(customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).block()==null){
             customersRepository.save(Customer.builder()
                     .fullName(PropertiesKey.Kalles_Grustransporte).address(PropertiesKey.Kalles_Address).build()).subscribe(customer -> {
-                List<Vehicle> kallesVehicle = new ArrayList<>();
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr1).vin(PropertiesKey.Kalles_Vin1).build());
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr2).vin(PropertiesKey.Kalles_Vin2).build());
-                kallesVehicle.add(Vehicle.builder().customerId(customer.getId()).regNr(PropertiesKey.Kalles_RegNr3).vin(PropertiesKey.Kalles_Vin3).build());
-                vehiclesRepository.saveAll(kallesVehicle).subscribe();
+                vehiclesRepository.saveAll(
+                        List.of(
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Kalles_Vin1).regNr(PropertiesKey.Kalles_RegNr1).build(),
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Kalles_Vin2).regNr(PropertiesKey.Kalles_RegNr2).build(),
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Kalles_Vin3).regNr(PropertiesKey.Kalles_RegNr3).build()
+                        )).subscribe();
             });
 
         }
         if(customersRepository.findByFullName(PropertiesKey.Johans_Bulk).block()==null){
             customersRepository.save(Customer.builder().fullName(PropertiesKey.Johans_Bulk).address(PropertiesKey.Johans_Address).build()).subscribe(customer -> {
-                List<Vehicle> johansVehicle = new ArrayList<>();
-                johansVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_RegNr1).regNr(PropertiesKey.Johans_Vin1).build());
-                johansVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_RegNr1).regNr(PropertiesKey.Johans_Vin2).build());
-                vehiclesRepository.saveAll(johansVehicle).subscribe();
+                vehiclesRepository.saveAll(
+                        List.of(
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_Vin1).regNr(PropertiesKey.Johans_RegNr1).build(),
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Johans_Vin2).regNr(PropertiesKey.Johans_RegNr2).build()
+                        )).subscribe();
             });
         }
         if(customersRepository.findByFullName(PropertiesKey.Haralds_Värdetransporter).block()==null){
             customersRepository.save(Customer.builder()
                     .fullName(PropertiesKey.Haralds_Värdetransporter).address(PropertiesKey.Haralds_Address).build()).subscribe(customer -> {
-                List<Vehicle> haraldsVehicle = new ArrayList<>();
-                haraldsVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin1).regNr(PropertiesKey.Haralds_RegNr1).build());
-                haraldsVehicle.add(Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin2).regNr(PropertiesKey.Haralds_RegNr2).build());
-                vehiclesRepository.saveAll(haraldsVehicle).subscribe();
-
+                vehiclesRepository.saveAll(
+                        List.of(
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin1).regNr(PropertiesKey.Haralds_RegNr1).build(),
+                                Vehicle.builder().customerId(customer.getId()).vin(PropertiesKey.Haralds_Vin2).regNr(PropertiesKey.Haralds_RegNr2).build()
+                        )).subscribe();
             });
         }
     }

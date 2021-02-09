@@ -14,13 +14,13 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 
 @RestController
-@RequestMapping("/api/v1/vehicle-value")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class VehicleResources {
     private final VehicleService vehicleService;
     @GetMapping(value = "/get-all-vehicle",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<VehicleStatusReceiverDto> StreamAllVehicleStatus(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        return vehicleService.streamVehicleStatus().delayElements(Duration.ofMinutes(1));
+    public Flux<VehicleStatusReceiverDto> StreamAllVehicleStatus() {
+        return Flux.interval(Duration.ofSeconds(1)).flatMap(aLong -> vehicleService.streamVehicleStatus());
 
     }
     @GetMapping("/get-customer-vehicle")

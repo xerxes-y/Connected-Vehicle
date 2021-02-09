@@ -37,6 +37,7 @@ public class VehicleServiceImpl implements VehicleService {
                 statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
                 statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
                 statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
+                vs.setStatusDetailDto(statusDetailDto);
                 return vs;
             });
         });

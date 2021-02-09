@@ -45,8 +45,6 @@ public class SimulateDateScheduler {
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
-
-
         }else {
             customersRepository.findByFullName(PropertiesKey.Kalles_Grustransporte).subscribe(customer -> {
                 vehiclesRepository.findByVinAndCustomerId(PropertiesKey.Kalles_Vin1, customer.getId()).subscribe(vehicle -> {
@@ -202,7 +200,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
+                            5, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -217,7 +215,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, 0, statusDetail);
+                            5, true, 0, statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -242,7 +240,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
+                            6, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -257,7 +255,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, 0, statusDetail);
+                            6, true, 0, statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -282,7 +280,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(ThreadLocalRandom.current().nextInt(11, 120 + 1));
                     statusDetail.setOpenDoor(true);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
+                            7, true, ThreadLocalRandom.current().nextInt(2, 10+ 1), statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });
@@ -297,7 +295,7 @@ public class SimulateDateScheduler {
                     statusDetail.setSpeedKilometers(0);
                     statusDetail.setOpenDoor(false);
                     VehicleStatusSenderDto vehicleStatus = new VehicleStatusSenderDto(vehicle.getVin(), customer.getId(),
-                            2, true, 0, statusDetail);
+                            7, true, 0, statusDetail);
                     streamMessageSender.sentMessage(vehicleStatus);
                 });
             });

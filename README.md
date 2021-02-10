@@ -1,7 +1,7 @@
-# Wireless-Vehicles Platform For Connected Vehicle
+# Platform For Connected Vehicles
 
-this project contain two spring micro service for cloud measurement work on kafka stream and 
-use spring webflux for send stream data  (Server Sent Event ) to GUI that's developed with React technology
+This project contains two spring micro services for cloud measurement and works on kafka stream that 
+uses spring webflux for sending stream data (Server Sent Event) to GUI. GUI is developed with React technology.
 
 
  

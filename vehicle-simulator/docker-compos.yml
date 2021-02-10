@@ -1,17 +1,18 @@
 version: "3"
 services:
-  api-database:
-    image: mongo:3.2.4
-    container_name: "api-database"
+  app:
+    image: vehicle-simulator
+    networks:
+      - my-network
+    depends_on:
+      - mongodb_container
+  mongodb_container:
+    image: mongo:latest
+    container_name: mongodb_container
     ports:
       - 27017:27017
-    command: --smallfiles
-  api:
-    image: api-docker-image
-    ports:
-      - 9091:8080
-    links:
-      - api-database
+    volumes:
+      - mongodb_data_container:/data/db
   zoo1:
     image: zookeeper:3.4.9
     hostname: zoo1
@@ -42,3 +43,8 @@ services:
       - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
+volumes:
+  mongodb_data_container:
+networks:
+  my-network:
+    driver: bridge

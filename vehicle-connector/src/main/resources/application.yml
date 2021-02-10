@@ -10,12 +10,15 @@ spring:
       port: 27017
       database: vehicles
       host: localhost
+#      host: api-database
   cloud:
     stream:
       kafka:
         binder:
           brokers: localhost:9092
           zkNodes: localhost:2181
+#          brokers: kafka1:9092
+#          zkNodes: zoo1:2181
       bindings:
         vehicle-stream:
           destination: vehicle-stream

@@ -39,27 +39,41 @@ const columns = [
     {
         title: 'Door Of Car',
         dataIndex: 'openDoor',
+        filters: [
+            {
+                text: 'Open',
+                value: 'Open',
+            },
+            {
+                text: 'Close',
+                value: 'Close',
+            },
+        ],
+        filterMultiple: false,
+        onFilter: (value, record) => record.openDoor.indexOf(value) === 0,
+        sorter: (a, b) => a.openDoor.length - b.openDoor.length,
+        sortDirections: ['descend', 'ascend'],
     },
     {
         title: 'Speed Of Car',
         dataIndex: 'speedKilometers',
     },
     {
-        title: 'connected',
+        title: 'status',
         dataIndex: 'connect',
         filters: [
             {
-                text: 'connected',
+                text: 'Connected',
                 value: 'Connected',
             },
             {
-                text: 'not-connected',
-                value: 'Not Connected',
+                text: 'NotConnected',
+                value: 'NotConnected',
             },
         ],
         filterMultiple: false,
-        onFilter: (value, record) => record.ping.indexOf(value) === 0,
-        sorter: (a, b) => a.ping.length - b.ping.length,
+        onFilter: (value, record) => record.connect.indexOf(value) === 0,
+        sorter: (a, b) => a.connect.length - b.connect.length,
         sortDirections: ['descend', 'ascend'],
     },
 ];

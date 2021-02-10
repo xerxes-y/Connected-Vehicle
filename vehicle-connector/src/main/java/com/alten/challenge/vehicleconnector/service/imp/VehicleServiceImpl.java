@@ -34,7 +34,7 @@ public class VehicleServiceImpl implements VehicleService {
                     vs.setDriverId(status.getDriverId());
                     vs.setPing(status.getPing());
                     vs.setVin(status.getVin());
-                    vs.setConnect(status.getPing() > 0 ? "Connected" : "Not Connected");
+                    vs.setConnect(status.getPing() > 0 ? "Connected" : "NotConnected");
                     vs.setOpenDoor(status.getStatusDetail().isOpenDoor()==true ? "Open" : "Close");
                     vs.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
                     return vs;

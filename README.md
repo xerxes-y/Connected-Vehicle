@@ -6,4 +6,3 @@ use spring webflux for send stream data  (Server Sent Event ) to GUI that's deve
 
  
 ![Alt text](Wireless%20car%20architecture.svg)
-<img src="./Wireless%20car%20architecture.svg">

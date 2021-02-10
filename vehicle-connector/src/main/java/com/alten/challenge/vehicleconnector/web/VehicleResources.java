@@ -19,7 +19,7 @@ public class VehicleResources {
     private final VehicleService vehicleService;
     @GetMapping(value = "/get-all-vehicle",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<VehicleStatusReceiverDto> StreamAllVehicleStatus() {
-        return Flux.interval(Duration.ofSeconds(1)).flatMap(duration -> vehicleService.streamVehicleStatus());
+        return Flux.interval(Duration.ofSeconds(5)).flatMap(duration -> vehicleService.streamVehicleStatus());
 
     }
     @GetMapping("/get-customer-vehicle/{customerName}")
@@ -29,8 +29,8 @@ public class VehicleResources {
     }
 
     @GetMapping("/get-vehicle-with-status")
-    public Flux<VehicleDto> getCustomerVehicle(@RequestBody  StatusDetailReceiver statusDetailReceiver) {
-        return vehicleService.getVehiclesWithSpecificStatus(statusDetailReceiver);
+    public Flux<VehicleDto> getCustomerVehicle(@RequestParam int speedKilometer,@RequestParam Boolean openDoor) {
+        return vehicleService.getVehiclesWithSpecificStatus(speedKilometer,openDoor);
 
     }
 }

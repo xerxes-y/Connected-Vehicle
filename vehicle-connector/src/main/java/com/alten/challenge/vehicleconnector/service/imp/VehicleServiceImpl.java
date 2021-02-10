@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.io.ObjectInputFilter;
+
 @Service("vehicleConnectorImp")
 @RequiredArgsConstructor
 @Slf4j
@@ -32,14 +34,9 @@ public class VehicleServiceImpl implements VehicleService {
                     vs.setDriverId(status.getDriverId());
                     vs.setPing(status.getPing());
                     vs.setVin(status.getVin());
-                    StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
-                    statusDetailDto.setConnected(status.getStatusDetail().isConnected());
-                    statusDetailDto.setGas(status.getStatusDetail().getGas());
-                    statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
-                    statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
-                    statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
-                    statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
-                    vs.setStatusDetailDto(statusDetailDto);
+                    vs.setConnect(status.getPing() > 0 ? "Connected" : "Not Connected");
+                    vs.setOpenDoor(status.getStatusDetail().isOpenDoor()==true ? "Open" : "Close");
+                    vs.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
                     return vs;
                 });
             });
@@ -57,14 +54,9 @@ public class VehicleServiceImpl implements VehicleService {
                     vs.setDriverId(status.getDriverId());
                     vs.setPing(status.getPing());
                     vs.setVin(status.getVin());
-                    StatusDetailReceiver statusDetailDto = new StatusDetailReceiver();
-                    statusDetailDto.setConnected(status.getStatusDetail().isConnected());
-                    statusDetailDto.setGas(status.getStatusDetail().getGas());
-                    statusDetailDto.setOpenDoor(status.getStatusDetail().isOpenDoor());
-                    statusDetailDto.setRunEngine(status.getStatusDetail().isRunEngine());
-                    statusDetailDto.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
-                    statusDetailDto.setWheelsWind(status.getStatusDetail().getWheelsWind());
-                    vs.setStatusDetailDto(statusDetailDto);
+                    vs.setConnect(status.getPing() > 0 ? "Connected" : "Not Connected");
+                    vs.setOpenDoor(status.getStatusDetail().isOpenDoor()==true ? "Open" : "Close");
+                    vs.setSpeedKilometers(status.getStatusDetail().getSpeedKilometers());
                     return vs;
                 });
             });
@@ -94,8 +86,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Flux<VehicleDto> getVehiclesWithSpecificStatus(StatusDetailReceiver statusDetail) {
-        return statusRepository.findByStatusDetail(statusDetail).flatMap(status -> {
+    public Flux<VehicleDto> getVehiclesWithSpecificStatus(int SpeedKilometer, Boolean openDoor) {
+        StatusDetailReceiver statusDetailReceiver = new StatusDetailReceiver();
+        statusDetailReceiver.setOpenDoor(openDoor);
+        statusDetailReceiver.setSpeedKilometers(SpeedKilometer);
+        return statusRepository.findByStatusDetail(statusDetailReceiver).flatMap(status -> {
             return vehiclesRepository.findByVin(status.getVin()).map(vehicle -> {
                 VehicleDto vd = new VehicleDto();
                 vd.setVin(vehicle.getVin());
@@ -106,6 +101,7 @@ public class VehicleServiceImpl implements VehicleService {
             });
         });
     }
+
 
 
 }

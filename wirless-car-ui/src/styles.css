@@ -1,0 +1,14 @@
+/* zebra striping */
+
+tbody tr:nth-child(odd) {
+    background-color: #3d8a5b;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #95e4b9;
+}
+
+
+table {
+    background-color: #35e392;
+}

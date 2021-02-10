@@ -12,6 +12,9 @@ public class VehicleStatusReceiverDto implements Serializable {
     private String customerName;
     private int driverId;
     private int ping;
+    private String connect;
+    private String openDoor;
+    private int speedKilometers;
     private StatusDetailReceiver statusDetailDto;
 
 }

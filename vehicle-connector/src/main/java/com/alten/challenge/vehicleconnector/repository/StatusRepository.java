@@ -13,4 +13,5 @@ public interface StatusRepository extends ReactiveMongoRepository<Status, String
     Mono<Status> findTopByVin(String vin);
     Flux<Status> findByStatusDetail(StatusDetailReceiver statusDetail);
 
+
 }
